@@ -8,9 +8,15 @@
         <div class="img" v-for="img in imageSources">
             <img :src="img" />
         </div>
-        
 
       <h1 v-if="imageSources.length == 0 && !isDragging">Drop some images</h1>
+
+      <div class="manual">
+        <label for="uploadmyfile">
+          <p>or pick from device</p>
+        </label>
+        <input type="file" id="uploadmyfile" :accept="'image/*'" multiple @change="requestUploadFile">
+      </div>
 
   </div>
 </template>
@@ -51,6 +57,11 @@ export default {
         this.isDragging = false
     },
 
+    requestUploadFile(){
+      var src = this.$el.querySelector('#uploadmyfile')
+      this.drop({dataTransfer:src})
+    },
+
     getBase64(file) {
         const reader = new FileReader()
         return new Promise(resolve => {
@@ -83,6 +94,7 @@ export default {
   font-family: sans-serif;
 
   overflow: hidden;
+  position: relative;
 }
 
 .isDragging{
@@ -103,5 +115,17 @@ img{
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.manual{
+  position: absolute;
+  bottom:0;
+  width:100%;
+  text-align:center;
+  font-size:.8rem;
+  text-decoration: underline;
+}
+#uploadmyfile{
+  display: none;
 }
 </style>

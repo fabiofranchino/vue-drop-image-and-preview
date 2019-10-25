@@ -61,6 +61,9 @@ export default {
           this.isDragging = false
         }
       }
+    },
+    onRequestUploadFiles(){
+      
     }
   }
 }
